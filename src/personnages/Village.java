@@ -1,11 +1,11 @@
 package personnages;
 
 public class Village {
-	private final int NB_VILLAGEOIS_MAX = 30;
+	private static final int NB_VILLAGEOIS_MAX = 30;
 	private String nom;
-	private int nbVillageois = 0;
 	private Gaulois chef;
 	private Gaulois[] villageois = new Gaulois[NB_VILLAGEOIS_MAX];
+	private int nbVillageois = 0;
 
 	public Village(String nom, Gaulois chef) {
 		this.nom = nom;
@@ -53,12 +53,12 @@ public class Village {
 		System.out.println(gaulois);
 		gaulois = village.trouverVillageois(2);
 		System.out.println(gaulois);
-		
-		Gaulois obelix = new Gaulois("Obélix",25);
+
+		Gaulois obelix = new Gaulois("Obélix", 25);
 		village.ajouterVillageois(obelix);
 		village.afficherVillageois();
-		
-		Gaulois doublePolemix = new Gaulois("DoublePolémix",4);
+
+		Gaulois doublePolemix = new Gaulois("DoublePolémix", 4);
 		abraracourcix.sePresenter();
 		obelix.sePresenter();
 		doublePolemix.sePresenter();
