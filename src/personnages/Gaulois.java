@@ -29,14 +29,16 @@ public class Gaulois {
 	}
 
 	public void sePresenter() {
-		if(this.equals(village.getChef())) {
-			parler("Bonjour, je m'appelle " + nom + ". Je suis le chef du village \"" + village + "\".");
-		} if(this.village != null) {
-			parler("Bonjour, je m'appelle " + nom + ". J'habite le village \"" + village + "\".");
+		String presentation = "\"Bonjour, je m'appelle \"" + nom + "\". ";
+		if (this.equals(village.getChef())) {
+			parler(presentation + ". Je suis le chef du village \"" + village + "\".");
+		} else if (this.village != null) {
+			parler(presentation + ". J'habite le village \"" + village + "\".");
 		} else {
-			parler("Bonjour, je m'appelle " + nom + ". Je voyage de villages en villages.");
-		};
-	}
+			parler(presentation + "Je voyage de villages en villages.");
+		}
+		parler(presentation);
+	};
 
 	public void frapper(Romain romain) {
 		String nomRomain = romain.getNom();

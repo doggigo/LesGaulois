@@ -1,13 +1,23 @@
 package personnages;
 
+import objets.Equipement;
+
 public class Romain {
 	private String nom;
 	private int force;
+	private Equipement[] equipement = new Equipement[2];
+	private int nbEquipement = 0;
 
-	private boolean isInvariantVerified() {
+	private boolean forcePositive() {
 		return force >= 0;
 	}
 	
+	
+
+	private boolean isInvariantVerified() {
+		return forcePositive();
+	}
+
 	public Romain(String nom, int force) {
 		this.nom = nom;
 		this.force = force;
@@ -31,8 +41,18 @@ public class Romain {
 		return "Le romain " + nom + " : ";
 	}
 
-	public void recevoirCoup(int forceCoup) {
+	private void assertForceCoupPositif(int forceCoup) {
 		assert forceCoup > 0;
+	}
+	
+	private void assertForceDiminuee(int forceAvant, int forceActuelle) {
+		assert forceAvant >= forceActuelle;
+	}
+	
+	public void recevoirCoup(int forceCoup) {
+		
+		assertForceCoupPositif(forceCoup);
+
 		int forceAvant = force;
 		force -= forceCoup;
 		if (force < 1) {
@@ -40,12 +60,49 @@ public class Romain {
 		} else {
 			parler("Aïe.");
 		}
-		assert forceAvant > force;
-	}
-	
-	public static void main(String[] args) {
-		Romain minus = new Romain("Minus", 6);
-		
+
+		assertForceDiminuee(forceAvant, force);
 	}
 
+	private void ajouterEquipement(Equipement objet) {
+		equipement[nbEquipement++] = objet;
+	}
+
+	public void sEquiper(Equipement objet) {
+		String presentation = "Le soldat " + nom;
+		switch (nbEquipement) {
+		case 2:
+			System.out.println(presentation + " est déjà bien protégé !");
+			break;
+		case 1:
+			if (equipement[0].equals(objet)) {
+				System.out.println(presentation + " possède déjà un " + objet + " !");
+			} else {
+				ajouterEquipementVerbeux(objet, presentation);
+			}
+			break;
+		case 0:
+			ajouterEquipementVerbeux(objet, presentation);
+			break;
+
+		default:
+			break;
+		}
+	}
+
+	private void ajouterEquipementVerbeux(Equipement objet, String presentation) {
+		System.out.println(presentation + " s'équipe avec un " + objet + ".");
+		ajouterEquipement(objet);
+	}
+
+	public static void main(String[] args) {
+		Romain minus = new Romain("Minus", 6);
+		System.out.println(Equipement.CASQUE);
+		System.out.println(Equipement.BOUCLIER);
+		
+		minus.sEquiper(Equipement.CASQUE);
+		minus.sEquiper(Equipement.CASQUE);
+		minus.sEquiper(Equipement.BOUCLIER);
+		minus.sEquiper(Equipement.CASQUE);
+	}
 }
